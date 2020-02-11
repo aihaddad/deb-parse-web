@@ -1,0 +1,10 @@
+{
+    "python.pythonPath": ".venv/bin/python",
+    "python.linting.enabled": true,
+    "editor.formatOnSave": true,
+    "python.formatting.provider": "black",
+    "editor.rulers": [
+        100,
+        140
+    ]
+}
