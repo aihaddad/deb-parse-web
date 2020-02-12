@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import render_template
 
 
 def create_app(test_config=None):
@@ -6,7 +7,7 @@ def create_app(test_config=None):
 
     @app.route("/")
     def index():
-        return "Hello from Flask!"
+        return render_template("_form.html")
 
     return app
 
