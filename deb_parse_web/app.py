@@ -1,10 +1,9 @@
 import os
-from flask import Flask, render_template, flash, request, escape, redirect, url_for
+from flask import Flask, render_template, send_file, flash, request, escape, redirect, url_for
 from werkzeug.utils import secure_filename
 
 
 ALLOWED_EXTENSIONS = set(["txt"])
-UPLOAD_FOLDER = "deb_parse_web/uploads"
 
 
 def allowed_file(filename):
@@ -12,6 +11,9 @@ def allowed_file(filename):
 
 
 def create_app(test_config=None):
+
+    from parse import parse_from    # type: ignore
+
     app = Flask(__name__)
 
     if test_config is None:
@@ -19,36 +21,41 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
+    os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
+
+
     @app.route("/", methods=["GET", "POST"])
     def form():
         if request.method == "POST":
             file = request.files.get("file")
 
             if file is None or file.filename == "":
-                text = request.form.get("text-content")
-
-                if text is None or text == "":
-                    flash("No file or text provided for processing", "warning")
-                    return redirect(request.url)
-                else:
-                    escape(text)
-                    flash("Plain text input is being processed.", "success")
-                    return redirect(url_for("packages"))
+                flash("No file provided.", "warning")
+                return redirect(request.url)
 
             if allowed_file(file.filename):
                 filename = secure_filename(file.filename)
-                file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
-                flash("File successfully uploaded", "success")
-                return redirect(url_for("packages"))
+                filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+
+                file.save(filepath)
+                recovery_id = parse_from(filepath)
+
+                if recovery_id:
+                    flash(f"File successfully uploaded. Your recovery id is: {recovery_id}", "success")
+                    return redirect(url_for("packages", recovery_id=recovery_id))
+                else:
+                    flash("File doesn't match Debian Control File syntax", "danger")
+                    return redirect(request.url)
             else:
-                flash("Only .txt file extensions allowed.", "danger")
+                flash("Only .txt file extensions allowed.", "warning")
                 return redirect(request.url)
 
         return render_template("_form.html")
 
-    @app.route("/packages")
-    def packages():
-        return render_template("_packages.html")
+
+    @app.route("/<recovery_id>/packages")
+    def packages(recovery_id):
+        return send_file(f"datastore/{recovery_id}/pkgs_clean.json")
 
     return app
 
