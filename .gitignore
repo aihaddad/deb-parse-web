@@ -130,4 +130,5 @@ dmypy.json
 
 # other
 *.sample
-datastore/
+*/datastore/
+*/uploads/
