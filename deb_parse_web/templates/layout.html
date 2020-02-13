@@ -45,17 +45,20 @@
             </ul>
         </div>
     </nav>
-
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
 
     {% block content %}{% endblock %}
-    <footer class="container fixed-bottom">
-        <br>
-        <p class="display-6">This app is only intended as a quick demo. It is not connected to any database, and only
-            uses
-            ephemeral file storage. Any displayed data will only be available for as long as the session is live, and
-            any
-            uploaded files will stay there until the compute instance is restarted.</p>
-    </footer>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -69,6 +72,7 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
     <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
 </body>

@@ -1,3 +1,10 @@
 body {
     padding-top: 60px;
 }
+p.display-6 {
+    padding-top: 0px;
+    font-size: 0.85em;
+}
+div.alert{
+    margin-bottom: 0px;
+}

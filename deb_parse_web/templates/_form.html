@@ -3,14 +3,47 @@
 {% block title %}- Form{% endblock %}
 {% block content %}
 
-
 <div class="jumbotron">
     <h1 class="display-5">A Demo Web App Using the <a
             href="https://github.com/aihaddad/deb-parse"><strong>Deb-Parse</strong></a>
         Python Package</h1>
-    <p class="lead"><em>Try it out by uploading a sample control file, or just pasting in its text
-            content.</em></p>
+    <p class="lead">Try it out with a sample control file, or plain text that fits the <a target="_blank"
+            href="https://www.debian.org/doc/debian-policy/ch-controlfields.html">syntax</a>.</p>
 </div>
 
+<div class="container">
+    <form method="post" action="/" enctype="multipart/form-data">
+        <div class="form-row">
+            <div class="input-group form-group col-md-7">
+                <div class="custom-file">
+                    <label class="custom-file-label" for="file">Choose a .txt file...</label>
+                    <input type="file" class="custom-file-input" name="file">
+                </div>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Upload & Submit</button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <textarea class="form-control" name="text-content" rows="15"
+                    placeholder="Or paste the text content (ignored if there is a file)"></textarea>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-outline-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<footer class="container fixed-bottom">
+    <p class="display-6"><em>This app is only intended as a quick demo. It is not connected to any database,
+            and only uses ephemeral file storage.<br>Any file or displayed data will only be available for
+            as long as the compute instance is live.</em>
+    </p>
+</footer>
 
 {% endblock %}
