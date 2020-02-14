@@ -30,5 +30,9 @@ def read(pkgs, pkg_name):
     return None
 
 
-def check_installed(recovery_id, pkg):
-    pass
+def is_installed(recovery_id, pkg):
+    list_path = os.path.join("deb_parse_web", "datastore", recovery_id, "pkgs_list.json")
+    with open(list_path) as jf:
+        pkgs_list = json.load(jf)
+
+    return True if pkg in pkgs_list else False

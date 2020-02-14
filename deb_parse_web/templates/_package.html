@@ -4,6 +4,9 @@
 {% block content %}
 
 <div class="container" style="padding-top: 25px;">
+    <a class="btn btn-lg btn-outline-primary" href="{{ url_for('packages', recovery_id=recovery_id) }}">
+        Back to packages
+    </a>
     <h1 style="padding-top: 25px;">{{ pkg["name"] }} <small class="text-muted"
             style="font-size: 0.65em;">{{ pkg["details"]["version"] }}</small>
     </h1>
@@ -21,7 +24,12 @@
                 <div class="card-body">
                     {% if pkg["details"]["depends"] %}
                     {% for dep in pkg["details"]["depends"] %}
+                    {% if is_installed(recovery_id, dep.split(' ')[0]) %}
+                    <p><a href="{{ url_for('package', pkg_name=dep.split(' ')[0], recovery_id=recovery_id) }}"
+                            class="card-text" style="color: #5bc0de;">{{ dep }}</a></p>
+                    {% else %}
                     <p class="card-text">{{ dep }}</p>
+                    {% endif %}
                     {% endfor %}
                     {% else %}
                     <p class="card-text"><em>None</em></p>
@@ -35,7 +43,12 @@
                 <div class="card-body">
                     {% if pkg["details"]["alt_depends"] %}
                     {% for dep in pkg["details"]["alt_depends"] %}
+                    {% if is_installed(recovery_id, dep.split(' ')[0]) %}
+                    <p><a href="{{ url_for('package', pkg_name=dep.split(' ')[0], recovery_id=recovery_id) }}"
+                            class="card-text" style="color: #5bc0de;">{{ dep }}</a></p>
+                    {% else %}
                     <p class="card-text">{{ dep }}</p>
+                    {% endif %}
                     {% endfor %}
                     {% else %}
                     <p class="card-text"><em>None</em></p>
@@ -49,7 +62,12 @@
                 <div class="card-body">
                     {% if pkg["details"]["reverse_depends"] %}
                     {% for dep in pkg["details"]["reverse_depends"] %}
+                    {% if is_installed(recovery_id, dep.split(' ')[0]) %}
+                    <p><a href="{{ url_for('package', pkg_name=dep.split(' ')[0], recovery_id=recovery_id) }}"
+                            class="card-text" style="color: #5bc0de;">{{ dep }}</a></p>
+                    {% else %}
                     <p class="card-text">{{ dep }}</p>
+                    {% endif %}
                     {% endfor %}
                     {% else %}
                     <p class="card-text"><em>None</em></p>
