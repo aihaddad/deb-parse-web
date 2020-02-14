@@ -25,11 +25,11 @@
         },
         "deb-parse": {
             "hashes": [
-                "sha256:2ba521302b5058b22f86736e22d279800fa9d4038d88d21d559b07683bb45504",
-                "sha256:2c7944aa18d0430b4f750f6b555d15c2e62e799f190b7911157873ba5f3c354c"
+                "sha256:114abadab461064bf76a72a953a09af4903366d03b3f0a06fd04268c9d51fa1a",
+                "sha256:27946e69f8fa72a876b65b80cd07321fdb6b2e059ea45b01eb1dcbe35f80cfb4"
             ],
             "index": "pypi",
-            "version": "==0.1.1"
+            "version": "==0.1.2rc1"
         },
         "flask": {
             "hashes": [
