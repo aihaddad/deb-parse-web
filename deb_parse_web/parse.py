@@ -23,13 +23,5 @@ def parse_from(filepath):
     return recovery_id
 
 
-def index(recovery_id):
-    pass
-
-
-def read(recovery_id, pkg):
-    pass
-
-
 def check_installed(recovery_id, pkg):
     pass

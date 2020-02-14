@@ -3,4 +3,35 @@
 {% block title %}- Packages{% endblock %}
 {% block content %}
 
+<div class="container" style="padding-top: 25px;">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row row-cols-1 row-cols-md-2">
+
+                {% for pkg in pkgs %}
+
+                <div class="col mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ pkg["name"] }}</h4>
+                            <p class="card-text">{{ pkg["details"]["synopsis"] }}</p>
+                            <a href="#" class="card-link btn btn-primary">Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-dark">JSON API</li>
+                <li class="list-group-item"><a href="#">/api/packages/raw</a></li>
+                <li class="list-group-item"><a href="#">/api/packages/clean</a></li>
+                <li class="list-group-item"><a href="#">/api/packages/list</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
