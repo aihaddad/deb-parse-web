@@ -1,6 +1,63 @@
 {% extends "layout.html" %}
 
-{% block title %}- {package["name"]}{% endblock %}
+{% block title %}- {pkg["name"]}{% endblock %}
 {% block content %}
+
+<div class="container" style="padding-top: 25px;">
+    <h1 style="padding-top: 25px;">{{ pkg["name"] }} <small class="text-muted"
+            style="font-size: 0.65em;">{{ pkg["details"]["version"] }}</small>
+    </h1>
+    <p class="lead">{{ pkg["details"]["synopsis"] }}</p>
+    <div class="card bg-light">
+        <div class="card-header">Description</div>
+        <div class="card-body">
+            <pre>{{ pkg["details"]["description"] }}</pre>
+        </div>
+    </div>
+    <div class="row row-cols-1 row-cols-md-3" style="padding-top: 25px;">
+        <div class="col mb-4">
+            <div class="card text-white bg-secondary">
+                <div class="card-header">Dependencies</div>
+                <div class="card-body">
+                    {% if pkg["details"]["depends"] %}
+                    {% for dep in pkg["details"]["depends"] %}
+                    <p class="card-text">{{ dep }}</p>
+                    {% endfor %}
+                    {% else %}
+                    <p class="card-text"><em>None</em></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col mb-4">
+            <div class="card text-white bg-secondary">
+                <div class="card-header">Alternative Dependencies</div>
+                <div class="card-body">
+                    {% if pkg["details"]["alt_depends"] %}
+                    {% for dep in pkg["details"]["alt_depends"] %}
+                    <p class="card-text">{{ dep }}</p>
+                    {% endfor %}
+                    {% else %}
+                    <p class="card-text"><em>None</em></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col mb-4">
+            <div class="card text-white bg-secondary">
+                <div class="card-header">Reverse Dependencies</div>
+                <div class="card-body">
+                    {% if pkg["details"]["reverse_depends"] %}
+                    {% for dep in pkg["details"]["reverse_depends"] %}
+                    <p class="card-text">{{ dep }}</p>
+                    {% endfor %}
+                    {% else %}
+                    <p class="card-text"><em>None</em></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

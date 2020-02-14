@@ -15,7 +15,8 @@
                         <div class="card-body">
                             <h4 class="card-title">{{ pkg["name"] }}</h4>
                             <p class="card-text">{{ pkg["details"]["synopsis"] }}</p>
-                            <a href="#" class="card-link btn btn-primary">Details</a>
+                            <a href="{{ url_for('package', pkg_name=pkg['name'], recovery_id=recovery_id) }}"
+                                class="card-link btn btn-primary">Details</a>
                         </div>
                     </div>
                 </div>

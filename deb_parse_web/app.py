@@ -4,6 +4,7 @@ import json
 
 from flask import (
     Flask,
+    abort,
     render_template,
     send_file,
     flash,
@@ -24,7 +25,7 @@ def allowed_file(filename):
 
 def create_app(test_config=None):
 
-    from .parse import parse_from  # type: ignore
+    from .parse import parse_from, read  # type: ignore
 
     app = Flask(__name__)
 
@@ -34,6 +35,11 @@ def create_app(test_config=None):
         app.config.from_mapping(test_config)
 
     os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
+
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return render_template('_404.html'), 404
+
 
     @app.route("/", methods=["GET", "POST"])
     def form():
@@ -64,12 +70,24 @@ def create_app(test_config=None):
 
         return render_template("_form.html")
 
+
     @app.route("/<recovery_id>/packages")
     def packages(recovery_id):
         json_path = os.path.join("deb_parse_web", "datastore", recovery_id, "pkgs_clean.json")
         with open(json_path) as jf:
             pkgs = json.load(jf)
-        return render_template("_packages.html", pkgs=pkgs)
+        return render_template("_packages.html", pkgs=pkgs, recovery_id=recovery_id)
+
+    
+    @app.route("/<recovery_id>/packages/<pkg_name>")
+    def package(recovery_id, pkg_name):
+        json_path = os.path.join("deb_parse_web", "datastore", recovery_id, "pkgs_clean.json")
+        with open(json_path) as jf:
+            pkgs = json.load(jf)
+        pkg = read(pkgs, pkg_name)
+        
+        return render_template("_package.html", pkg=pkg) if pkg else abort(404)
+
 
     return app
 
