@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}Page Not Found{% endblock %}
+{% block content %}
+
+<div class="container" style="padding-top: 50px;">
+    <div class="jumbotron">
+        <h1 style="font-size: 15em;">404</h1>
+        <h2>What you're looking for is not around here <sup
+                style="font-size: 0.65em; color: #777;"><em>anymore</em></sup></h2>
+        <br>
+        <a href="{{ url_for('form') }}" class="btn btn-primary">Take me home</a>
+    </div>
+</div>
+
+{% endblock %}

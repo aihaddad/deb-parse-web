@@ -23,5 +23,12 @@ def parse_from(filepath):
     return recovery_id
 
 
+def read(pkgs, pkg_name):
+    for pkg in pkgs:
+        if pkg["name"] == pkg_name:
+            return pkg
+    return None
+
+
 def check_installed(recovery_id, pkg):
     pass
