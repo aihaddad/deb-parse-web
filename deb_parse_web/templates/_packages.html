@@ -25,11 +25,17 @@
             </div>
         </div>
         <div class="col-md-4">
-            <ul class="list-group">
+            <ul class="list-group position-fixed" style="width: 22.5%;">
                 <li class="list-group-item list-group-item-dark">JSON API</li>
-                <li class="list-group-item"><a href="#">/api/packages/raw</a></li>
-                <li class="list-group-item"><a href="#">/api/packages/clean</a></li>
-                <li class="list-group-item"><a href="#">/api/packages/list</a></li>
+                <li class="list-group-item"><a
+                        href="{{ url_for('api_packages', recovery_id=recovery_id, json_type='raw') }}">/api/packages/raw</a>
+                </li>
+                <li class="list-group-item"><a
+                        href="{{ url_for('api_packages', recovery_id=recovery_id, json_type='clean') }}">/api/packages/clean</a>
+                </li>
+                <li class="list-group-item"><a
+                        href="{{ url_for('api_packages', recovery_id=recovery_id, json_type='list') }}">/api/packages/list</a>
+                </li>
             </ul>
         </div>
     </div>

@@ -9,7 +9,6 @@ from flask import (
     send_file,
     flash,
     request,
-    escape,
     redirect,
     url_for,
 )
@@ -88,7 +87,7 @@ def create_app(test_config=None):
         pkg = read(pkgs, pkg_name)
 
         if pkg:
-           return render_template(
+            return render_template(
                 "_package.html",
                 pkg=pkg,
                 recovery_id=recovery_id,
@@ -96,6 +95,16 @@ def create_app(test_config=None):
             )
         else:
             abort(404)
+
+    @app.route("/<recovery_id>/api/packages/<json_type>")
+    def api_packages(recovery_id, json_type):
+        json_types = ["raw", "list", "clean"]
+        if json_type not in json_types:
+            flash(f"Only {json_types} are available.", "danger")
+            abort(404)
+
+        json_path = os.path.join("datastore", recovery_id, f"pkgs_{json_type}.json")
+        return send_file(json_path)
 
     return app
 
