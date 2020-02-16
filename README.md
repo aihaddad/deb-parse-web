@@ -6,7 +6,7 @@ A small app that exposes some key information about packages in a [Debian contro
 
 I broke this down in two. First, I wrote a [simple parser][2] in Python; then packaged it and distributed it on [PyPi][3]. Lastly, I wrote this Flask web app that depends on that package to demonstrate how it works.
 ___
-__See it in action__
+__[See it in action][4]__
 ___
 
 ## Run it locally
@@ -26,7 +26,7 @@ UPLOAD_FOLDER=deb_parse_web/uploads
 ```
 This app doesn't connect to any database, so you don't have to worry about that.
 
-Next, make sure you have Python >= 3.7 and [`pipenv`][2] installed and:
+Next, make sure you have Python >= 3.7 and [`pipenv`][5] installed and:
 ```bash
 $ pipenv install
 ...
@@ -68,4 +68,5 @@ There are probably a few opportunities for refactoring. I've personally already 
 [1]: https://www.debian.org/doc/debian-policy/ch-controlfields.html
 [2]: https://github.com/aihaddad/deb-parse
 [3]: https://pypi.org/project/deb-parse/0.1.2rc1/
-[4]: https://docs.pipenv.org/en/latest/
+[4]: http://deb-parse-web.herokuapp.com/
+[5]: https://docs.pipenv.org/en/latest/
