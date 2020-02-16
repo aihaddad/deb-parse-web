@@ -108,8 +108,7 @@ def create_app(test_config=None):
 
     return app
 
+app = create_app()
 
 if __name__ == "__main__":
-    # Elastic BeanStalk works with "application"
-    application = create_app()
-    application.run(debug=True)
+    app.run(debug=True)
