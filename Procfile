@@ -1,0 +1,1 @@
+web: gunicorn dev_parse_web:app
