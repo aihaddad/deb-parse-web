@@ -1,1 +1,1 @@
-web: gunicorn dev_parse_web:app
+web: gunicorn deb_parse_web:app
