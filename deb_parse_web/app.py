@@ -73,9 +73,12 @@ def create_app(test_config=None):
         json_path = os.path.join(
             "deb_parse_web", "datastore", recovery_id, "pkgs_clean.json"
         )
-        with open(json_path) as jf:
-            pkgs = json.load(jf)
-        return render_template("_packages.html", pkgs=pkgs, recovery_id=recovery_id)
+        try:
+            with open(json_path) as jf:
+                pkgs = json.load(jf)
+            return render_template("_packages.html", pkgs=pkgs, recovery_id=recovery_id)
+        except:
+            abort(404)
 
     @app.route("/<recovery_id>/packages/<pkg_name>")
     def package(recovery_id, pkg_name):
@@ -107,6 +110,7 @@ def create_app(test_config=None):
         return send_file(json_path)
 
     return app
+
 
 app = create_app()
 
