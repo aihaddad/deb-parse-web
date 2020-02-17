@@ -85,18 +85,21 @@ def create_app(test_config=None):
         json_path = os.path.join(
             "deb_parse_web", "datastore", recovery_id, "pkgs_clean.json"
         )
-        with open(json_path) as jf:
-            pkgs = json.load(jf)
-        pkg = read(pkgs, pkg_name)
+        try:
+            with open(json_path) as jf:
+                pkgs = json.load(jf)
+            pkg = read(pkgs, pkg_name)
 
-        if pkg:
-            return render_template(
-                "_package.html",
-                pkg=pkg,
-                recovery_id=recovery_id,
-                is_installed=is_installed,
-            )
-        else:
+            if pkg:
+                return render_template(
+                    "_package.html",
+                    pkg=pkg,
+                    recovery_id=recovery_id,
+                    is_installed=is_installed,
+                )
+            else:
+                abort(404)
+        except:
             abort(404)
 
     @app.route("/<recovery_id>/api/packages/<json_type>")
